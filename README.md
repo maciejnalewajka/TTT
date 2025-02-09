@@ -1,1 +1,1 @@
-# KiK -> Kółko i Krzyżyk
+# TTT -> Tic-Tac-Toe
