@@ -11,9 +11,9 @@ import random as r
 
 class TTT:
 
-    def __init__(self, player1 = "", player2 = ""):
-        self.player1 = self.playerName()
-        self.player2 = self.playerName()
+    def __init__(self, player1 = "Player1", player2 = "Player2"):
+        self.player1 = player1
+        self.player2 = player2
         self.board = self.initBoard()
         self.char1 = 'x'
         self.char2 = 'o'
@@ -24,10 +24,6 @@ class TTT:
     def initBoard(self):
         l = [[[],[],[]],[[],[],[]],[[],[],[]]]
         return l
-
-    def playerName(self):
-        name = ""
-        return name
 
     def show(self):
         for i in range(0, 3):
@@ -70,15 +66,25 @@ class TTT:
     def random_position(self):
         return r.randint(0, 2)
 
+    def isTie(self):
+        for i in self.board:
+            for j in i:
+                if j == []:
+                    return False
+        print("TIE")
+        return True
+
     def game_main(self):
+        print(self.__str__())
+        print(self.player1 + " vs " + self.player2 + "\n")
         p = self.isWin()
         while p == False:
-            while True:
-                if self.char(self.char1): break
+            self.char(self.char1)
             p = self.isWin()
             self.show()
-            while True:
-                if self.char(self.char2): break
+            if self.isTie(): break
+            self.char(self.char2)
             p = self.isWin()
             self.show()
+            if self.isTie(): break
         print("Game Over")
