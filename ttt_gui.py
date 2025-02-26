@@ -7,23 +7,33 @@
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow
+from functools import partial
 
 class TTTWindow(QMainWindow):
 
     def __init__(self):
         super(TTTWindow, self).__init__()
-        self.setGeometry(500, 500, 300, 300)
+        self.setGeometry(500, 500, 500, 500)
         self.setWindowTitle("Tic-Tac-Toe")
-        # self.initUi()
+        self.initUi()
 
     def initUi(self):
-        pass
-        # elements shown at start
+        self.__initCharButtons()
 
-    def btnClick(self, button):
+
+    def __btnClick(self, button):
         pass
         # button do something
     
     def update(self):
         pass
         # update elements
+
+    def __initCharButtons(self, sizeOfboard):
+        listOfButtons = []
+        for i in range(9):
+            self.charButton = QtWidgets.QPushButton(self)
+            listOfButtons.append(self.charButton)
+            listOfButtons[i].setGeometry((i%3)*101, (i//3)*101, 100, 100)       #Size and position of char buttons
+            f_btnClick = partial(self.__btnClick, listOfButtons[i])
+            listOfButtons[i].clicked.connect(f_btnClick)
