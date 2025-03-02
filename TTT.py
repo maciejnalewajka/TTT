@@ -4,7 +4,7 @@
     Version: 1.001
     Copyright © 2024 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
-
+## to reuse and remove
 import random as r
 
 class TTT:

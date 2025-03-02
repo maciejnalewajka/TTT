@@ -6,14 +6,14 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QIcon
 from game import Game
 
-class TTTWindow(QMainWindow):
+class GameWindow(QWidget):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super(GameWindow, self).__init__(parent)
         self.setGeometry(500, 500, 800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
         self.setWindowIcon(QIcon("ICON\icon.jpg"))
