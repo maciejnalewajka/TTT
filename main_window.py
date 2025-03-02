@@ -1,7 +1,7 @@
-"""---------------------------------------------------------------------------------------------------------------------------------------------------
+"""----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
     Edit Date: 02/03/2025.
-    Version: 1.001
+    Version: 1.002
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
@@ -12,8 +12,8 @@ from PyQt5.QtWidgets import QWidget
 
 class MainWindow(QWidget):
 
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
+    def __init__(self):
+        super(MainWindow, self).__init__()
         self.__initMainView()
 
     def __initMainView(self):

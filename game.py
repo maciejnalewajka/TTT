@@ -1,12 +1,15 @@
-"""---------------------------------------------------------------------------------------------------------------------------------------------------
+"""----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
     Edit Date: 02/03/2025.
-    Version: 1.002
+    Version: 1.003
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
-from PyQt5.QtGui import QIcon, QPixmap
+"""------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 from PyQt5.QtCore import QSize
+from PyQt5.QtGui import QIcon, QPixmap
+"""------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
+
 
 class Game():
 
@@ -16,6 +19,10 @@ class Game():
         self.__pixmap_empty = QPixmap("IMAGE\empty.jpg")
         
         self.__pixType = ""
+
+    def pl(self, but, but2, par):
+        but2.clicked.connect(par.startMainWigdet)
+        but.clicked.connect(par.startGameWigdet)
 
     def initGameButtons(self, listOfButtons, buttonSize):       #Function to create buttons with chars
         buttonsDict = {index: value for index, value in enumerate(listOfButtons)}      #Create dictionary with buttons and indexes of buttons  
