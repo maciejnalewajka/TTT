@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 02/03/2025.
-    Version: 1.004
+    Edit Date: 06/03/2025.
+    Version: 1.005
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 
     Simply example of Tic-Tac-Toe game.
@@ -25,20 +25,21 @@ class TTTWindow(QMainWindow):
         self.setGeometry(500, 500, 800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
         self.setWindowIcon(QIcon("ICON\icon.jpg"))
-        # self.startMainWigdet()
-        self.startGameWigdet()            #to remove
+        self.startMainWidget()
+        # self.startGameWidget()            #to remove
 
-    def startMainWigdet(self):
+    def startMainWidget(self):
         self.mainWindow = MainWindow()
         self.setCentralWidget(self.mainWindow)
-        # self.mainWindow.playButton.clicked.connect(self.startGameWigdet)             #need to create button
+        self.mainWindow.playButton.clicked.connect(lambda: self.startGameWidget(self.mainWindow.player1Name.text(), self.mainWindow.player2Name.text()))
+        self.mainWindow.exitButton.clicked.connect(self.close)
         self.show()
 
-    def startGameWigdet(self):
+    def startGameWidget(self, player1Name, player2Name):
         self.gameWindow = GameWindow()
         self.setCentralWidget(self.gameWindow)
-        self.gameWindow.backToMainButton.clicked.connect(self.startMainWigdet)
-        self.gameWindow.newGameButton.clicked.connect(self.startGameWigdet)
+        self.gameWindow.backToMainButton.clicked.connect(self.startMainWidget)
+        self.gameWindow.newGameButton.clicked.connect(lambda: self.startGameWidget(player1Name, player2Name))
         self.show()
 
 

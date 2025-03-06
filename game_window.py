@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 02/03/2025.
-    Version: 1.005
+    Edit Date: 06/03/2025.
+    Version: 1.006
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
@@ -23,25 +23,23 @@ class GameWindow(QWidget):
         self.setWindowTitle("Tic-Tac-Toe")
         self.setWindowIcon(QIcon("ICON\icon.jpg"))
 
-        self.newGameButton = QtWidgets.QPushButton(self)
-        self.newGameButton.setObjectName("Button New Game")
-        self.backToMainButton = QtWidgets.QPushButton(self)
-        self.backToMainButton.setObjectName("Button Back To Main")
+        self.newGameButton = QtWidgets.QPushButton(self)        #Button to start new game
+        self.backToMainButton = QtWidgets.QPushButton(self)     #Button to back to main window
 
         self.listOfButtons = []
         self.game = Game()
         self.__initUi()
 
-        # self.game.pl(self.newGameButton, self.backToMainButton)
-
     def __initUi(self):    #Function to init UI
-        #TODO: Init main view of game
-
+        self.newGameButton.setObjectName("Button New Game")
+        self.newGameButton.setGeometry(620, 15, 150, 50)
+        self.newGameButton.setText("New Game")
+        self.newGameButton.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;")
+        self.backToMainButton.setObjectName("Button Back To Main")
+        self.backToMainButton.setGeometry(620, 75, 150, 50)
+        self.backToMainButton.setText("Back")
+        self.backToMainButton.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;")
         self.__initCharButtons(4)
-
-    def initMainView(self):
-        #TODO: Init main view of game
-        pass
 
     def __initCharButtons(self, buttonsInRow):       #Function to create buttons with chars
         buttonSize = 555//buttonsInRow
