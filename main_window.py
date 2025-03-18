@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 06/03/2025.
-    Version: 1.003
+    Edit Date: 18/03/2025.
+    Version: 1.004
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
@@ -26,7 +26,7 @@ class MainWindow(QWidget):
 
     def __initMainView(self):
         self.playButton.setObjectName("Play Button")
-        self.playButton.setGeometry(300, 200, 200, 100)
+        self.playButton.setGeometry(300, 230, 200, 100)
         self.playButton.setText("Play")
         self.playButton.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;")
         self.exitButton.setObjectName("Exit Button")
@@ -34,8 +34,8 @@ class MainWindow(QWidget):
         self.exitButton.setText("Exit")
         self.exitButton.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px")
 
-        self.player1Name.setGeometry(300, 100, 200, 50)
-        self.player2Name.setGeometry(300, 150, 200, 50)
+        self.player1Name.setGeometry(300, 50, 200, 50)
+        self.player2Name.setGeometry(300, 110, 200, 50)
         self.player1Name.setPlaceholderText("Player 1")
         self.player2Name.setPlaceholderText("Player 2")
         self.player1Name.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;")

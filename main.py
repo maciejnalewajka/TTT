@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 06/03/2025.
-    Version: 1.005
+    Edit Date: 18/03/2025.
+    Version: 1.006
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 
     Simply example of Tic-Tac-Toe game.
@@ -26,7 +26,6 @@ class TTTWindow(QMainWindow):
         self.setWindowTitle("Tic-Tac-Toe")
         self.setWindowIcon(QIcon("ICON\icon.jpg"))
         self.startMainWidget()
-        # self.startGameWidget()            #to remove
 
     def startMainWidget(self):
         self.mainWindow = MainWindow()
@@ -36,7 +35,7 @@ class TTTWindow(QMainWindow):
         self.show()
 
     def startGameWidget(self, player1Name, player2Name):
-        self.gameWindow = GameWindow()
+        self.gameWindow = GameWindow(player1Name, player2Name)
         self.setCentralWidget(self.gameWindow)
         self.gameWindow.backToMainButton.clicked.connect(self.startMainWidget)
         self.gameWindow.newGameButton.clicked.connect(lambda: self.startGameWidget(player1Name, player2Name))
