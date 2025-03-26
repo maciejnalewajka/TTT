@@ -1,8 +1,10 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 18/03/2025.
-    Version: 1.006
+    Edit Date: 26/03/2025.
+    Version: 1.007
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
+    Used color palette:
+    https://colorhunt.co/palette/fbf5dda6cdc616404ddda853, https://colorhunt.co/palette/5f8b4cffddabff9a9a945034
 
     Simply example of Tic-Tac-Toe game.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
@@ -25,6 +27,7 @@ class TTTWindow(QMainWindow):
         self.setGeometry(500, 500, 800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
         self.setWindowIcon(QIcon("ICON\icon.jpg"))
+        self.setStyleSheet("background-color: #FBF5DD;")
         self.startMainWidget()
 
     def startMainWidget(self):

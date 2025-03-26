@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 18/03/2025.
-    Version: 1.007
+    Edit Date: 26/03/2025.
+    Version: 1.008
     Copyright © 2025 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
@@ -30,6 +30,7 @@ class GameWindow(QWidget):
         self.vsLabel = QtWidgets.QLabel(self)              #Label to show player2 name
         self.player1Name = player1Name
         self.player2Name = player2Name
+        self.initPlayerName(player1Name, player2Name)
 
         self.listOfButtons = []
         self.game = Game()
@@ -38,7 +39,6 @@ class GameWindow(QWidget):
     def __initUi(self):    #Function to init UI
         self.player1Label.setObjectName("Label Player 1")
         self.player1Label.setGeometry(620, 15, 150, 50)
-        self.player1Label.setText(self.player1Name)
         self.player1Label.setStyleSheet("background-color: #000000; color: white; font-size: 15px; font-weight: bold; border-top-left-radius: 10px; "
         "border-top-right-radius: 10px;")
         self.player1Label.setAlignment(QtCore.Qt.AlignCenter)
@@ -49,7 +49,6 @@ class GameWindow(QWidget):
         self.vsLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.player2Label.setObjectName("Label Player 2")
         self.player2Label.setGeometry(620, 115, 150, 50)
-        self.player2Label.setText(self.player2Name)
         self.player2Label.setStyleSheet("background-color: #000000; color: white; font-size: 15px; font-weight: bold; border-bottom-left-radius: 10px; "
         "border-bottom-right-radius: 10px;")
         self.player2Label.setAlignment(QtCore.Qt.AlignCenter)
@@ -73,4 +72,12 @@ class GameWindow(QWidget):
             self.listOfButtons.append(self.charButton)
             self.listOfButtons[i].setGeometry((i%buttonsInRow)*(buttonSize+5)+15, (i//buttonsInRow)*(buttonSize+5)+15, buttonSize, buttonSize)       #Size and position of char buttons
         self.game.initGameButtons(self.listOfButtons, buttonSize)
+
+    def initPlayerName(self, player1, player2):
+        if player1 == "":
+            player1 = "Player 1"
+        if player2 == "":
+            player2 = "Player 2"
+        self.player1Label.setText(player1)
+        self.player2Label.setText(player2)
 
