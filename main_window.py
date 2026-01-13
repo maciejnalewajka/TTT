@@ -18,14 +18,11 @@ class MainWindow(QWidget):
         super(MainWindow, self).__init__()
 
         self.mainLabel = QtWidgets.QLabel(self)
-
         self.playButton = QtWidgets.QPushButton(self)
         self.exitButton = QtWidgets.QPushButton(self)
-
         self.player1Name = QtWidgets.QLineEdit(self)
         self.player2Name = QtWidgets.QLineEdit(self)
         
-
         self.__initMainView()
 
     def __initMainView(self):
@@ -65,7 +62,7 @@ class MainWindow(QWidget):
         return styleSheet
     
     def __getExitButtonStyle(self):
-        styleSheet = """QPushButton {background-color: #16404D; color: black; font-size: 20px; font-weight: bold; border-radius: 10px}
+        styleSheet = """QPushButton {background-color: #A6CDC6; color: black; font-size: 20px; font-weight: bold; border-radius: 10px;}
         QPushButton:hover {background-color: #5F8B4C; border-color: black; border-style: solid; border-width: 2px;}"""
         return styleSheet
     

@@ -25,8 +25,9 @@ class TTTWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setGeometry(500, 500, 800, 600)
+        self.setFixedSize(800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
-        self.setWindowIcon(QIcon("ICON\icon.jpg"))
+        self.setWindowIcon(QIcon("ICON\\icon.jpg"))
         self.setStyleSheet("background-color: #FBF5DD;")
         self.startMainWidget()
 

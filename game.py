@@ -14,9 +14,10 @@ from PyQt5.QtGui import QIcon, QPixmap
 class Game():
 
     def __init__(self):
-        self.__pixmap_O = QPixmap("IMAGE\O.jpg")
-        self.__pixmap_X = QPixmap("IMAGE\X.jpg")
-        self.__pixmap_empty = QPixmap("IMAGE\empty.jpg")
+        super(Game, self).__init__()
+        self.__pixmap_O = QPixmap("IMAGE\\O.jpg")
+        self.__pixmap_X = QPixmap("IMAGE\\X.jpg")
+        self.__pixmap_empty = QPixmap("IMAGE\\empty.jpg")
         
         self.__pixType = ""
 

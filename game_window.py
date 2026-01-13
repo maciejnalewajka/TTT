@@ -7,11 +7,11 @@
 
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
 
 from game import Game
-
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 
 
@@ -23,7 +23,7 @@ class GameWindow(QWidget):
         self.setWindowTitle("Tic-Tac-Toe")
         # Lock window to default size (uncomment/remove to allow resizing)
         self.setFixedSize(800, 600)
-        self.setWindowIcon(QIcon("ICON\icon.jpg"))
+        self.setWindowIcon(QIcon("ICON\\icon.jpg"))
 
         self.newGameButton = QtWidgets.QPushButton(self)        #Button to start new game
         self.backToMainButton = QtWidgets.QPushButton(self)     #Button to back to main window
@@ -39,32 +39,13 @@ class GameWindow(QWidget):
         self.__initUi()
 
     def __initUi(self):    #Function to init UI
-        self.player1Label.setObjectName("Label Player 1")
-        self.player1Label.setGeometry(620, 15, 150, 50)
-        self.player1Label.setStyleSheet("background-color: #000000; color: white; font-size: 15px; font-weight: bold; border-top-left-radius: 10px; "
-        "border-top-right-radius: 10px;")
-        self.player1Label.setAlignment(QtCore.Qt.AlignCenter)
-        self.vsLabel.setObjectName("Label VS")
-        self.vsLabel.setGeometry(620, 65, 150, 50)
-        self.vsLabel.setText("VS")
-        self.vsLabel.setStyleSheet("background-color: #000000; color: white; font-size: 25px; font-weight: bold;")
-        self.vsLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.player2Label.setObjectName("Label Player 2")
-        self.player2Label.setGeometry(620, 115, 150, 50)
-        self.player2Label.setStyleSheet("background-color: #000000; color: white; font-size: 15px; font-weight: bold; border-bottom-left-radius: 10px; "
-        "border-bottom-right-radius: 10px;")
-        self.player2Label.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.newGameButton.setObjectName("Button New Game")
-        self.newGameButton.setGeometry(620, 200, 150, 50)
-        self.newGameButton.setText("New Game")
-        self.newGameButton.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;")
-        self.backToMainButton.setObjectName("Button Back To Main")
-        self.backToMainButton.setGeometry(620, 260, 150, 50)
-        self.backToMainButton.setText("Back")
-        self.backToMainButton.setStyleSheet("background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;")
-
+        self.__initVsLabel()
+        self.__initPlayer1Label()
+        self.__initPlayer2Label()
+        self.__initNewGameButton()
+        self.__initBackToMainButton()
         self.__initCharButtons(4)
+
 
     def __initCharButtons(self, buttonsInRow):       #Function to create buttons with chars
         buttonSize = 555//buttonsInRow
@@ -83,3 +64,59 @@ class GameWindow(QWidget):
         self.player1Label.setText(player1)
         self.player2Label.setText(player2)
 
+    def __initVsLabel(self):
+        self.vsLabel.setObjectName("Label VS")
+        self.vsLabel.setGeometry(620, 65, 150, 50)
+        self.vsLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.vsLabel.setText("VS")
+        self.vsLabel.setStyleSheet(self.__getvsLabelStyle())
+        
+    def __initPlayer1Label(self):
+        self.player1Label.setObjectName("Label Player 1")
+        self.player1Label.setGeometry(620, 15, 150, 50)
+        self.player1Label.setStyleSheet(self.__getplayer1LabelStyle())
+        self.player1Label.setAlignment(QtCore.Qt.AlignCenter)
+
+    def __initPlayer2Label(self):
+        self.player2Label.setObjectName("Label Player 2")
+        self.player2Label.setGeometry(620, 115, 150, 50)
+        self.player2Label.setStyleSheet(self.__getplayer2LabelStyle())
+        self.player2Label.setAlignment(QtCore.Qt.AlignCenter)
+
+    def __initNewGameButton(self):
+        self.newGameButton.setObjectName("Button New Game")
+        self.newGameButton.setGeometry(620, 200, 150, 50)
+        self.newGameButton.setText("New Game")
+        self.newGameButton.setStyleSheet(self.__getNewGameButtonStyle())
+        self.newGameButton.setCursor(Qt.PointingHandCursor)
+    
+    def __initBackToMainButton(self):
+        self.backToMainButton.setObjectName("Button Back To Main")
+        self.backToMainButton.setGeometry(620, 260, 150, 50)
+        self.backToMainButton.setText("Main Menu")
+        self.backToMainButton.setStyleSheet(self.__getbackToMainButtonStyle())
+        self.backToMainButton.setCursor(Qt.PointingHandCursor)
+
+    def __getplayer1LabelStyle(self):
+        styleSheet = """background-color: #000000; color: white; font-size: 15px; font-weight: bold; border-top-left-radius: 10px;
+        border-top-right-radius: 10px;"""
+        return styleSheet
+    
+    def __getplayer2LabelStyle(self):
+        styleSheet = """background-color: #000000; color: white; font-size: 15px; font-weight: bold; border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;"""
+        return styleSheet
+    
+    def __getvsLabelStyle(self):
+        styleSheet = """background-color: #000000; color: white; font-size: 25px; font-weight: bold;"""
+        return styleSheet
+
+    def __getNewGameButtonStyle(self):
+        styleSheet = """QPushButton {background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;}
+        QPushButton:hover {background-color: #5F8B4C; border-color: black; border-style: solid; border-width: 2px;}"""
+        return styleSheet
+    
+    def __getbackToMainButtonStyle(self):
+        styleSheet = """QPushButton {background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;}
+        QPushButton:hover {background-color: #5F8B4C; border-color: black; border-style: solid; border-width: 2px;}"""
+        return styleSheet
