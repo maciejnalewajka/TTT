@@ -21,6 +21,8 @@ class GameWindow(QWidget):
         super(GameWindow, self).__init__()
         self.setGeometry(500, 500, 800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
+        # Lock window to default size (uncomment/remove to allow resizing)
+        self.setFixedSize(800, 600)
         self.setWindowIcon(QIcon("ICON\icon.jpg"))
 
         self.newGameButton = QtWidgets.QPushButton(self)        #Button to start new game
