@@ -53,7 +53,8 @@ class GameWindow(QWidget):
             self.charButton = QtWidgets.QPushButton(self)
             self.charButton.setObjectName("Button " + str(i))
             self.listOfButtons.append(self.charButton)
-            self.listOfButtons[i].setGeometry((i%buttonsInRow)*(buttonSize+5)+15, (i//buttonsInRow)*(buttonSize+5)+15, buttonSize, buttonSize)       #Size and position of char buttons
+            #Size and position of char buttons
+            self.listOfButtons[i].setGeometry((i%buttonsInRow)*(buttonSize+5)+15, (i//buttonsInRow)*(buttonSize+5)+15, buttonSize, buttonSize)
         self.game.initGameButtons(self.listOfButtons, buttonSize)
 
     def initPlayerName(self, player1, player2):
