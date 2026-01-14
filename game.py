@@ -15,11 +15,13 @@ class Game():
 
     def __init__(self):
         super(Game, self).__init__()
-        self.__pixmap_O = QPixmap("IMAGE\\O.jpg")
-        self.__pixmap_X = QPixmap("IMAGE\\X.jpg")
-        self.__pixmap_empty = QPixmap("IMAGE\\empty.jpg")
-        
+        self.__pixmap_O = QPixmap("IMAGE\\O.png")
+        self.__pixmap_X = QPixmap("IMAGE\\X.png")
+        self.__pixmap_empty = QPixmap("IMAGE\\empty.png")
         self.__setInitPixType("X")
+        self.__scorePlayer1 = 0
+        self.__scorePlayer2 = 0
+        self.__initScores()
 
     def initGameButtons(self, listOfButtons, buttonSize):       #Function to create buttons with chars
         buttonsDict = {index: value for index, value in enumerate(listOfButtons)}      #Create dictionary with buttons and indexes of buttons  
@@ -49,6 +51,12 @@ class Game():
                     button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon
             self.__pixTypeUpdate()
 
+    def __initScores(self):    #Function to init scores
+        self.__scorePlayer1 = 0
+        self.__scorePlayer2 = 0
+
+    def getScores(self):    #Function to get scores
+        return self.__scorePlayer1, self.__scorePlayer2
 
 # TODO: Add function to check win condition
 # TODO: Add function to reset game

@@ -42,7 +42,7 @@ class TTTWindow(QMainWindow):
         self.gameWindow = GameWindow(player1Name, player2Name)
         self.setCentralWidget(self.gameWindow)
         self.gameWindow.backToMainButton.clicked.connect(self.startMainWidget)
-        self.gameWindow.newGameButton.clicked.connect(lambda: self.startGameWidget(player1Name, player2Name))
+        # self.gameWindow.newGameButton.clicked.connect(lambda: self.startGameWidget(player1Name, player2Name))
         self.show()
 
 
