@@ -1,8 +1,8 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 26/03/2025.
+    Edit Date: 19/01/2026.
     Version: 1.008
-    Copyright © 2025 Maciej Nalewajka. All rights reserved.
+    Copyright © 2026 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
@@ -11,7 +11,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
 
-from game import Game
+from Game import Game
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 
 
@@ -35,7 +35,6 @@ class GameWindow(QWidget):
         self.player1Name = player1Name
         self.player2Name = player2Name
         self.initPlayerName(player1Name, player2Name)
-
         self.listOfButtons = []
         self.game = Game()
         self.__initUi()
@@ -46,12 +45,9 @@ class GameWindow(QWidget):
         self.__initScorePlayer1Label()
         self.__initPlayer2Label()
         self.__initScorePlayer2Label()
-        self.__initScores()
-
         self.__initNewGameButton()
         self.__initBackToMainButton()
         self.__initCharButtons(4)
-
 
     def __initCharButtons(self, buttonsInRow):       #Function to create buttons with chars
         buttonSize = 555//buttonsInRow
@@ -62,7 +58,8 @@ class GameWindow(QWidget):
             #Size and position of char buttons
             self.listOfButtons[i].setGeometry((i%buttonsInRow)*(buttonSize+5)+15, (i//buttonsInRow)*(buttonSize+5)+15, buttonSize, buttonSize)
             self.listOfButtons[i].setStyleSheet("background-color: #FFFFFF; border-radius: 5px; border-color: black; border-style: solid; border-width: 1px;")
-        self.game.initGameButtons(self.listOfButtons, buttonSize)
+        self.game.startGame(self.listOfButtons, buttonSize)
+        self.listOfButtons = []
 
     def initPlayerName(self, player1, player2):
         if player1 == "":
@@ -110,7 +107,7 @@ class GameWindow(QWidget):
         self.newGameButton.setGeometry(610, 200, 170, 50)
         self.newGameButton.setText("New Game")
         self.newGameButton.setStyleSheet(self.__getNewGameButtonStyle())
-        self.newGameButton.clicked.connect(lambda: self.startGameWidget(player1Name, player2Name))
+        self.newGameButton.clicked.connect(lambda: self.game.newGame())
         self.newGameButton.setCursor(Qt.PointingHandCursor)
     
     def __initBackToMainButton(self):
