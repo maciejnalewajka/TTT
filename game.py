@@ -6,6 +6,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
+import math as Math
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QPixmap
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
@@ -23,11 +24,13 @@ class Game():
         self.__scorePlayer2 = 0
         self.listOfButtons = []
         self.buttonSize = 0
+        self.pixChecker = None
 
     def startGame(self, listOfButtons, buttonSize):    #Function to start game
         self.listOfButtons = listOfButtons
         self.buttonSize = buttonSize
         self.__initGameButtons()
+        self.pixChecker = self.listOfButtons[0].icon().pixmap(self.buttonSize).toImage().format()
 
     def __initGameButtons(self):       #Function to create buttons with chars
         buttonsDict = {index: value for index, value in enumerate(self.listOfButtons)}      #Create dictionary with buttons and indexes of buttons  
@@ -44,6 +47,8 @@ class Game():
                     button.setIcon(QIcon(self.__pixmap_O))      #Set icon of button to O icon
                 case _:
                     button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon
+            if(self.__isWin()):
+                print("Win")
             self.__pixTypeUpdate()
 
     def __pixTypeUpdate(self):    #Function to update pixType
@@ -58,7 +63,50 @@ class Game():
             button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon
         self.__pixType = "X"
 
+    def __isWin(self):
+        rowSize = int(Math.sqrt(len(self.listOfButtons)))
+        if self.__pixType == "X":
+            pixIcon = self.__pixmap_X
+        if self.__pixType == "O":
+            pixIcon = self.__pixmap_O
+        win = 0
+        for i in range(0, len(self.listOfButtons), rowSize):
+            # Check rows
+            if (self.listOfButtons[i].icon().pixmap(self.buttonSize).toImage().format() == \
+                self.listOfButtons[i+1].icon().pixmap(self.buttonSize).toImage().format() == \
+                self.listOfButtons[i+2].icon().pixmap(self.buttonSize).toImage().format() == \
+                self.listOfButtons[i+3].icon().pixmap(self.buttonSize).toImage().format() == \
+                pixIcon.toImage().format()):
+                    return True
+        # for i in range(0, , rowSize):
+        #     if (self.listOfButtons[i].icon().pixmap(self.buttonSize).toImage().format() == \
+        #         self.listOfButtons[i+rowSize].icon().pixmap(self.buttonSize).toImage().format() == \
+        #         self.listOfButtons[i+(rowSize*2)].icon().pixmap(self.buttonSize).toImage().format() == \
+        #         self.listOfButtons[i+(rowSize*3)].icon().pixmap(self.buttonSize).toImage().format() == \
+        #         pixIcon.toImage().format()):
+        #             print("Row win 2")
+        #             return True
+            
 
-# TODO: Add function to check win condition
-# TODO: Add function to reset game
-# TODO: Add scoreboard functionality
+        # # Check columns
+        # for i in range(3):
+        #     if self.listOfButtons[i].icon().pixmap(self.buttonSize).toImage().format() != 0 and \
+        #        self.listOfButtons[i].icon().pixmap(self.buttonSize).toImage().format() == \
+        #        self.listOfButtons[i+3].icon().pixmap(self.buttonSize).toImage().format() == \
+        #        self.listOfButtons[i+6].icon().pixmap(self.buttonSize).toImage().format():
+        #         return True
+
+        # # Check diagonals
+        # if self.listOfButtons[0].icon().pixmap(self.buttonSize).toImage().format() != 0 and \
+        #    self.listOfButtons[0].icon().pixmap(self.buttonSize).toImage().format() == \
+        #    self.listOfButtons[4].icon().pixmap(self.buttonSize).toImage().format() == \
+        #    self.listOfButtons[8].icon().pixmap(self.buttonSize).toImage().format():
+        #     return True
+
+        # if self.listOfButtons[2].icon().pixmap(self.buttonSize).toImage().format() != 0 and \
+        #    self.listOfButtons[2].icon().pixmap(self.buttonSize).toImage().format() == \
+        #    self.listOfButtons[4].icon().pixmap(self.buttonSize).toImage().format() == \
+        #    self.listOfButtons[6].icon().pixmap(self.buttonSize).toImage().format():
+        #     return True
+
+        # return False
