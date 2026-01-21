@@ -27,6 +27,7 @@ class GameWindow(QWidget):
 
         self.newGameButton = QtWidgets.QPushButton(self)        #Button to start new game
         self.backToMainButton = QtWidgets.QPushButton(self)     #Button to back to main window
+        self.resetButton = QtWidgets.QPushButton(self)     #Button to back to main window
         self.player1Label = QtWidgets.QLabel(self)              #Label to show player1 name
         self.scorePlayer1Label = QtWidgets.QLabel(self)              #Label to show player1 score
         self.player2Label = QtWidgets.QLabel(self)              #Label to show player2 name
@@ -47,6 +48,7 @@ class GameWindow(QWidget):
         self.__initScorePlayer2Label()
         self.__initNewGameButton()
         self.__initBackToMainButton()
+        self.__initResetButton()
         self.__initCharButtons(4)
 
     def __initCharButtons(self, buttonsInRow):       #Function to create buttons with chars
@@ -111,13 +113,21 @@ class GameWindow(QWidget):
         self.newGameButton.clicked.connect(lambda: self.game.newGame())
         self.newGameButton.setCursor(Qt.PointingHandCursor)
     
+    def __initResetButton(self):
+        self.resetButton.setObjectName("Button Reset")
+        self.resetButton.setGeometry(610, 260, 170, 50)
+        self.resetButton.setText("Reset Scores")
+        self.resetButton.setStyleSheet(self.__getResetButtonStyle())
+        self.resetButton.clicked.connect(lambda: self.game.resetScores())
+        self.resetButton.setCursor(Qt.PointingHandCursor)
+    
     def __initBackToMainButton(self):
         self.backToMainButton.setObjectName("Button Back To Main")
-        self.backToMainButton.setGeometry(610, 260, 170, 50)
+        self.backToMainButton.setGeometry(610, 320, 170, 50)
         self.backToMainButton.setText("Main Menu")
         self.backToMainButton.setStyleSheet(self.__getbackToMainButtonStyle())
         self.backToMainButton.setCursor(Qt.PointingHandCursor)
-
+        
     def __getplayer1LabelStyle(self):
         styleSheet = """background-color: #000000; color: white; font-size: 16px; font-weight: bold; border-top-left-radius: 10px;"""
         return styleSheet
@@ -139,6 +149,11 @@ class GameWindow(QWidget):
         return styleSheet
 
     def __getNewGameButtonStyle(self):
+        styleSheet = """QPushButton {background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;}
+        QPushButton:hover {background-color: #5F8B4C; border-color: black; border-style: solid; border-width: 2px;}"""
+        return styleSheet
+    
+    def __getResetButtonStyle(self):
         styleSheet = """QPushButton {background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;}
         QPushButton:hover {background-color: #5F8B4C; border-color: black; border-style: solid; border-width: 2px;}"""
         return styleSheet

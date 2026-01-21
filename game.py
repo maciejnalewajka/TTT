@@ -63,9 +63,7 @@ class Game():
     
     def newGame(self):    #Function to reset game
         for button in self.listOfButtons:
-            button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon
-        self.__scorePlayer1 = 0
-        self.__scorePlayer2 = 0
+            button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon\
         self.__pixType = "X"
         self.Xlist, self.Olist = [], []
 
@@ -125,3 +123,10 @@ class Game():
         if winO == True:
             return 2
         return 0
+    
+    def resetScores(self):    #Function to reset scores
+        self.__scorePlayer1 = 0
+        self.__scorePlayer2 = 0
+        self.scorePlayer1Label.setText(str(self.__scorePlayer1))
+        self.scorePlayer2Label.setText(str(self.__scorePlayer2))
+        self.newGame()
