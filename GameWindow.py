@@ -1,6 +1,6 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 19/01/2026.
+    Edit Date: 21/01/2026.
     Version: 1.008
     Copyright © 2026 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
@@ -36,7 +36,7 @@ class GameWindow(QWidget):
         self.player2Name = player2Name
         self.initPlayerName(player1Name, player2Name)
         self.listOfButtons = []
-        self.game = Game()
+        self.game = Game(self.scorePlayer1Label, self.scorePlayer2Label)
         self.__initUi()
 
     def __initUi(self):    #Function to init UI
@@ -54,6 +54,7 @@ class GameWindow(QWidget):
         for i in range(0, buttonsInRow*buttonsInRow):
             self.charButton = QtWidgets.QPushButton(self)
             self.charButton.setObjectName("Button " + str(i))
+            self.charButton.setCursor(Qt.PointingHandCursor)
             self.listOfButtons.append(self.charButton)
             #Size and position of char buttons
             self.listOfButtons[i].setGeometry((i%buttonsInRow)*(buttonSize+5)+15, (i//buttonsInRow)*(buttonSize+5)+15, buttonSize, buttonSize)
