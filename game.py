@@ -7,22 +7,36 @@
 
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 import math as Math
+import sys
+import os
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QPixmap
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 class Game():
 
-    def __init__(self, scorePlayer1Label, scorePlayer2Label):
+    def __init__(self, scorePlayer1Label, scorePlayer2Label, drawButton):
         super(Game, self).__init__()
         self.scorePlayer1Label = scorePlayer1Label
         self.scorePlayer2Label = scorePlayer2Label
-        self.__pixmap_O = QPixmap("IMAGE\\O.png")
-        self.__pixmap_X = QPixmap("IMAGE\\X.png")
-        self.__pixmap_O_win = QPixmap("IMAGE\\O_win.png")
-        self.__pixmap_X_win = QPixmap("IMAGE\\X_win.png")
-        self.__pixmap_empty = QPixmap("IMAGE\\empty.png")
+        self.drawButton = drawButton
+        self.__pixmap_O = QPixmap(resource_path("IMAGE\\O.png"))
+        self.__pixmap_X = QPixmap(resource_path("IMAGE\\X.png"))
+        self.__pixmap_O_win = QPixmap(resource_path("IMAGE\\O_win.png"))
+        self.__pixmap_X_win = QPixmap(resource_path("IMAGE\\X_win.png"))
+        self.__pixmap_empty = QPixmap(resource_path("IMAGE\\empty.png"))
         self.__pixType = "X"
         self.__scorePlayer1 = 0
         self.__scorePlayer2 = 0
@@ -69,6 +83,7 @@ class Game():
             button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon\
         self.__pixType = "X"
         self.Xlist, self.Olist = [], []
+        self.drawButton.setVisible(False)
 
     def __whoWin(self):
         rowSize = int(Math.sqrt(len(self.listOfButtons)))
@@ -78,6 +93,10 @@ class Game():
         elif self.__checkRows(rowSize) == 2 or self.__checkColumns(rowSize) == 2 or self.__checkDiagonals(rowSize) == 2:
             self.__scorePlayer2 += 1
             self.scorePlayer2Label.setText(str(self.__scorePlayer2))
+        elif len(self.Xlist) + len(self.Olist) == len(self.listOfButtons):
+            for button in self.listOfButtons:
+                button.setEnabled(False)
+            self.drawButton.setVisible(True)
 
     def __checkRows(self, rowSize):
         for i in range(0, len(self.listOfButtons), rowSize):

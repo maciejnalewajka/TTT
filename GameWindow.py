@@ -6,6 +6,8 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
+import sys
+import os
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
@@ -13,6 +15,17 @@ from PyQt5.QtWidgets import QWidget
 
 from Game import Game
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 class GameWindow(QWidget):
@@ -23,7 +36,7 @@ class GameWindow(QWidget):
         self.setWindowTitle("Tic-Tac-Toe")
         # Lock window to default size (uncomment/remove to allow resizing)
         self.setFixedSize(800, 600)
-        self.setWindowIcon(QIcon("ICON\\icon.jpg"))
+        self.setWindowIcon(QIcon(resource_path("ICON\\icon.jpg")))
 
         self.newGameButton = QtWidgets.QPushButton(self)        #Button to start new game
         self.backToMainButton = QtWidgets.QPushButton(self)     #Button to back to main window
@@ -33,11 +46,12 @@ class GameWindow(QWidget):
         self.player2Label = QtWidgets.QLabel(self)              #Label to show player2 name
         self.scorePlayer2Label = QtWidgets.QLabel(self)              #Label to show player2 score
         self.vsLabel = QtWidgets.QLabel(self)              #Label to show player2 name
+        self.drawButton = QtWidgets.QLabel(self)     #Label to show draw message
         self.player1Name = player1Name
         self.player2Name = player2Name
         self.initPlayerName(player1Name, player2Name)
         self.listOfButtons = []
-        self.game = Game(self.scorePlayer1Label, self.scorePlayer2Label)
+        self.game = Game(self.scorePlayer1Label, self.scorePlayer2Label, self.drawButton)
         self.__initUi(gridSize)
 
     def __initUi(self, gridSize):    #Function to init UI
@@ -49,6 +63,7 @@ class GameWindow(QWidget):
         self.__initNewGameButton()
         self.__initBackToMainButton()
         self.__initResetButton()
+        self.__initDrawButton()
         self.__initCharButtons(gridSize)
 
     def __initCharButtons(self, buttonsInRow):       #Function to create buttons with chars
@@ -57,6 +72,7 @@ class GameWindow(QWidget):
             self.charButton = QtWidgets.QPushButton(self)
             self.charButton.setObjectName("Button " + str(i))
             self.charButton.setCursor(Qt.PointingHandCursor)
+            self.charButton.lower()
             self.listOfButtons.append(self.charButton)
             #Size and position of char buttons
             self.listOfButtons[i].setGeometry((i%buttonsInRow)*(buttonSize+5)+15, (i//buttonsInRow)*(buttonSize+5)+15, buttonSize, buttonSize)
@@ -128,6 +144,15 @@ class GameWindow(QWidget):
         self.backToMainButton.setStyleSheet(self.__getbackToMainButtonStyle())
         self.backToMainButton.setCursor(Qt.PointingHandCursor)
         
+    def __initDrawButton(self):
+        self.drawButton.setObjectName("Button Draw")
+        self.drawButton.setGeometry(100, 100, 400, 400)
+        self.drawButton.setText("Draw \n No one wins! \n Click New Game to play again.")
+        self.drawButton.setStyleSheet(self.__getDrawButtonStyle())
+        self.drawButton.setVisible(False)
+        self.drawButton.setAlignment(QtCore.Qt.AlignCenter)
+        self.raise_()
+        
     def __getplayer1LabelStyle(self):
         styleSheet = """background-color: #000000; color: white; font-size: 16px; font-weight: bold; border-top-left-radius: 10px;"""
         return styleSheet
@@ -161,4 +186,8 @@ class GameWindow(QWidget):
     def __getbackToMainButtonStyle(self):
         styleSheet = """QPushButton {background-color: #000000; color: white; font-size: 20px; font-weight: bold; border-radius: 10px;}
         QPushButton:hover {background-color: #5F8B4C; border-color: black; border-style: solid; border-width: 2px;}"""
+        return styleSheet
+    
+    def __getDrawButtonStyle(self):
+        styleSheet = """background-color: #FFFFFF; color: black; font-size: 25px; font-weight: bold; border-radius: 10px; border: 2px solid black;"""
         return styleSheet

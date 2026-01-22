@@ -11,6 +11,7 @@
 
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 import sys
+import os
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow
@@ -20,14 +21,25 @@ from Main_window import MainWindow
 """------------------------------------------------------------IMPORTS------------------------------------------------------------------------------"""
 
 
-class TTTMainWindow(QMainWindow):
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+class Main(QMainWindow):
 
     def __init__(self):
         super().__init__()
         self.setGeometry(500, 500, 800, 600)
         self.setFixedSize(800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
-        self.setWindowIcon(QIcon("ICON\\icon.jpg"))
+        self.setWindowIcon(QIcon(resource_path("ICON\\icon.jpg")))
         self.setStyleSheet("background-color: #FBF5DD;")
         self.gridSize = 3 # Default grid size
         self.startMainWidget()
@@ -41,6 +53,7 @@ class TTTMainWindow(QMainWindow):
         self.mainWindow.f4x4Button.clicked.connect(lambda: self.__chooseGridSize(4, self.mainWindow))
         self.mainWindow.f5x5Button.clicked.connect(lambda: self.__chooseGridSize(5, self.mainWindow))
         self.mainWindow.f6x6Button.clicked.connect(lambda: self.__chooseGridSize(6, self.mainWindow))
+        self.gridSize = 3
         self.show()
 
     def startGameWidget(self, player1Name, player2Name):
@@ -75,7 +88,7 @@ class TTTMainWindow(QMainWindow):
     
 def main():
     app = QApplication(sys.argv)
-    win = TTTMainWindow()
+    win = Main()
     win.show()
     sys.exit(app.exec_())
 
