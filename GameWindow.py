@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 21/01/2026.
-    Version: 1.008
+    Edit Date: 22/01/2026.
+    Version: 1.1
     Copyright © 2026 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
@@ -17,7 +17,7 @@ from Game import Game
 
 class GameWindow(QWidget):
 
-    def __init__(self, player1Name, player2Name):
+    def __init__(self, player1Name, player2Name, gridSize):
         super(GameWindow, self).__init__()
         self.setGeometry(500, 500, 800, 600)
         self.setWindowTitle("Tic-Tac-Toe")
@@ -38,9 +38,9 @@ class GameWindow(QWidget):
         self.initPlayerName(player1Name, player2Name)
         self.listOfButtons = []
         self.game = Game(self.scorePlayer1Label, self.scorePlayer2Label)
-        self.__initUi()
+        self.__initUi(gridSize)
 
-    def __initUi(self):    #Function to init UI
+    def __initUi(self, gridSize):    #Function to init UI
         self.__initVsLabel()
         self.__initPlayer1Label()
         self.__initScorePlayer1Label()
@@ -49,7 +49,7 @@ class GameWindow(QWidget):
         self.__initNewGameButton()
         self.__initBackToMainButton()
         self.__initResetButton()
-        self.__initCharButtons(4)
+        self.__initCharButtons(gridSize)
 
     def __initCharButtons(self, buttonsInRow):       #Function to create buttons with chars
         buttonSize = 555//buttonsInRow

@@ -1,7 +1,7 @@
 """----------------------------------------------------------------------------------------------------------------------------------------------------
     Author: Maciej Nalewajka
-    Edit Date: 21/01/2026.
-    Version: 1.008
+    Edit Date: 22/01/2026.
+    Version: 1.1
     Copyright © 2026 Maciej Nalewajka. All rights reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------"""
 
@@ -20,6 +20,8 @@ class Game():
         self.scorePlayer2Label = scorePlayer2Label
         self.__pixmap_O = QPixmap("IMAGE\\O.png")
         self.__pixmap_X = QPixmap("IMAGE\\X.png")
+        self.__pixmap_O_win = QPixmap("IMAGE\\O_win.png")
+        self.__pixmap_X_win = QPixmap("IMAGE\\X_win.png")
         self.__pixmap_empty = QPixmap("IMAGE\\empty.png")
         self.__pixType = "X"
         self.__scorePlayer1 = 0
@@ -63,6 +65,7 @@ class Game():
     
     def newGame(self):    #Function to reset game
         for button in self.listOfButtons:
+            button.setEnabled(True)
             button.setIcon(QIcon(self.__pixmap_empty))      #Set icon of button to empty icon\
         self.__pixType = "X"
         self.Xlist, self.Olist = [], []
@@ -80,12 +83,16 @@ class Game():
         for i in range(0, len(self.listOfButtons), rowSize):
             winX = True
             winO = True
+            winList = []
             for j in range(0, rowSize):
+                winList.append(i+j)
                 winX = winX and (i+j in self.Xlist)
                 winO = winO and (i+j in self.Olist)
             if winX == True:
+                self.__changeAfterWin("X", winList)
                 return 1
             if winO == True:
+                self.__changeAfterWin("O", winList)
                 return 2
         return 0
     
@@ -93,34 +100,46 @@ class Game():
         for i in range(0, rowSize):
             winX = True
             winO = True
+            winList = []
             for j in range(0, len(self.listOfButtons), rowSize):
+                winList.append(i+j)
                 winX = winX and (i+j in self.Xlist)
                 winO = winO and (i+j in self.Olist)
             if winX == True:
+                self.__changeAfterWin("X", winList)
                 return 1
             if winO == True:
+                self.__changeAfterWin("O", winList)
                 return 2
         return 0
     
     def __checkDiagonals(self, rowSize):
         winX = True
         winO = True
+        winList = []
         for i in range(0, len(self.listOfButtons), rowSize+1):
+            winList.append(i)
             winX = winX and (i in self.Xlist)
             winO = winO and (i in self.Olist)
         if winX == True:
+            self.__changeAfterWin("X", winList)
             return 1
         if winO == True:
+            self.__changeAfterWin("O", winList)
             return 2
 
         winX = True
         winO = True
+        winList = []
         for i in range(rowSize-1, len(self.listOfButtons)-1, rowSize-1):
+            winList.append(i)
             winX = winX and (i in self.Xlist)
             winO = winO and (i in self.Olist)
         if winX == True:
+            self.__changeAfterWin("X", winList)
             return 1
         if winO == True:
+            self.__changeAfterWin("O", winList)
             return 2
         return 0
     
@@ -130,3 +149,12 @@ class Game():
         self.scorePlayer1Label.setText(str(self.__scorePlayer1))
         self.scorePlayer2Label.setText(str(self.__scorePlayer2))
         self.newGame()
+        
+    def __changeAfterWin(self, char, listOfButtons):    #Function to change buttons after win
+        for button in self.listOfButtons:
+            button.setEnabled(False)
+        for button in listOfButtons:
+            if char == "X":
+                self.listOfButtons[button].setIcon(QIcon(self.__pixmap_X_win))
+            elif char == "O":
+                self.listOfButtons[button].setIcon(QIcon(self.__pixmap_O_win))
